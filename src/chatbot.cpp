@@ -30,6 +30,7 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+
 ChatBot::~ChatBot()
 {
     std::cout << "ChatBot Destructor" << std::endl;
@@ -44,7 +45,42 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+ChatBot::ChatBot(ChatBot&& source)
+{
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+	_image = source._image;
+  _chatLogic->SetChatbotHandle(this);
+  	if(source._image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    {
+        delete source._image;
+        source._image = NULL;
+    }
+}
 
+ChatBot& ChatBot::operator=(ChatBot&& source)
+{
+    std::cout << "ChatBot Move assignment" << std::endl;
+    if(&source == this) {
+      return *this;
+    }
+  	_image = NULL;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+	_image = source._image;
+  	_chatLogic->SetChatbotHandle(this);
+  
+  	if(source._image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    {
+        delete source._image;
+        source._image = NULL;
+    }
+  return *this;
+  	
+}
 ////
 //// EOF STUDENT CODE
 
