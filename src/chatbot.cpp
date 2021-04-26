@@ -51,7 +51,7 @@ ChatBot::ChatBot(const ChatBot& source){
   _chatLogic = source._chatLogic;
   _rootNode = source._rootNode;
   _currentNode = source._currentNode;
-  _image = source._image;
+  _image = new wxBitmap(*source._image);
 
 }
 // move constructor
@@ -63,11 +63,8 @@ ChatBot::ChatBot(ChatBot&& source)
     _rootNode = source._rootNode;
 	_image = source._image;
     _chatLogic->SetChatbotHandle(this);
-  	if(source._image != NULL) // Attention: wxWidgets used NULL and not nullptr
-    {
-        delete source._image;
-        source._image = NULL;
-    }
+  	
+    source._image = NULL;
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
     source._currentNode = nullptr;
@@ -106,23 +103,13 @@ ChatBot& ChatBot::operator=(ChatBot& source)
     if(&source == this) {
       return *this;
     }
-  	_image = NULL;
+  	_image = new wxBitmap(*source._image);
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
     _currentNode = source._currentNode;
 	_image = source._image;
   	_chatLogic->SetChatbotHandle(this);
   
-  	if(source._image != NULL) // Attention: wxWidgets used NULL and not nullptr
-    {
-        delete source._image;
-      source._image = NULL;
-    }
-  
-  
-    source._currentNode = nullptr;
-    source._rootNode = nullptr;
-    source._chatLogic = nullptr;
   return *this;
   	
 }
