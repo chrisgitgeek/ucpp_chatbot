@@ -96,7 +96,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                 // remove token from current line
                 lineStr = lineStr.substr(posTokenBack + 1, lineStr.size());
             }
-
             // process tokens for current line
             auto type = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "TYPE"; });
             if (type != tokens.end())
@@ -130,7 +129,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         ////
                         //// EOF STUDENT CODE
                     }
-
                     // edge-based processing
                     if (type->second == "EDGE")
                     {
@@ -184,7 +182,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     //// STUDENT CODE
     ////
-
     // identify root node
     GraphNode *rootNode = nullptr;
     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
@@ -204,13 +201,21 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
   
-	ChatBot localChatBot("../images/chatbot.png");
-    SetChatbotHandle(&localChatBot);
-	localChatBot.SetRootNode(rootNode);
+    std::cout << "1" << std::endl;
+
+  
+	ChatBot _chatBot("../images/chatbot.png");
+	    std::cout << "2" << std::endl;
+	_chatBot.SetRootNode(rootNode);
+	    std::cout << "3" << std::endl;
+
     _chatBot.SetChatLogicHandle(this);
+	    std::cout << "4" << std::endl;
+
     // add chatbot to graph root node
     rootNode->MoveChatbotHere(std::move(_chatBot));
-    
+  	    std::cout << "10" << std::endl;
+
     ////
     //// EOF STUDENT CODE
 }
