@@ -52,7 +52,7 @@ ChatBot::ChatBot(const ChatBot& source){
   _rootNode = source._rootNode;
   _currentNode = source._currentNode;
   _image = new wxBitmap(*source._image);
-
+  _chatLogic->SetChatbotHandle(this);
 }
 // move constructor
 ChatBot::ChatBot(ChatBot&& source)
