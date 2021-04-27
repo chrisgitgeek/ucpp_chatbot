@@ -201,20 +201,13 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
   
-    std::cout << "1" << std::endl;
-
-  
 	ChatBot _chatBot("../images/chatbot.png");
-	    std::cout << "2" << std::endl;
 	_chatBot.SetRootNode(rootNode);
-	    std::cout << "3" << std::endl;
 
     _chatBot.SetChatLogicHandle(this);
-	    std::cout << "4" << std::endl;
 
     // add chatbot to graph root node
     rootNode->MoveChatbotHere(std::move(_chatBot));
-  	    std::cout << "10" << std::endl;
 
     ////
     //// EOF STUDENT CODE
@@ -227,12 +220,12 @@ void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)
 
 void ChatLogic::SetChatbotHandle(ChatBot* chatbot)
 {
-    _chatBot = *chatbot;
+    _chatBot = chatbot;
 }
 
 void ChatLogic::SendMessageToChatbot(std::string message)
 {
-    _chatBot.ReceiveMessageFromUser(message);
+    _chatBot->ReceiveMessageFromUser(message);
 }
 
 void ChatLogic::SendMessageToUser(std::string message)
@@ -242,5 +235,5 @@ void ChatLogic::SendMessageToUser(std::string message)
 
 wxBitmap *ChatLogic::GetImageFromChatbot()
 {
-    return _chatBot.GetImageHandle();
+    return _chatBot->GetImageHandle();
 }
